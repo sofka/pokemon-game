@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <Header title="Титл" descr="Дескрипшн"/>
-      <Layout id={1} urlBg={ImageBg2} />
+      <Layout id={1} urlBg={ImageBg2} colorBg="blue"/>
       <Layout id={2} colorBg="yellow" />
       <Layout id={3} urlBg={ImageBg3} />
       <Footer />

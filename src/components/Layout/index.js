@@ -1,13 +1,10 @@
 import layoutStyle from './layout.module.css';
 
 const Layout = ({ id, title, descr, urlBg, colorBg }) => {
-    const backgroundStyle = urlBg ?
-        {
-            background: `url(${urlBg})`,
-
-        } : {
-            backgroundColor: colorBg
-        };
+    const backgroundStyle = {
+        background: urlBg && `url(${urlBg})`,
+        backgroundColor: colorBg
+    };
     return (
         <section className={layoutStyle.root} id={id}
             style={backgroundStyle}>
