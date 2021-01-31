@@ -1,6 +1,7 @@
 import headerStyle from './header.module.css'
 
 const Header = ({ title, descr }) => {
+    
     return (
         <header className={headerStyle.root}>
             <div className={headerStyle.forest}></div>
