@@ -1,5 +1,5 @@
 import cn from 'classnames';
-
+import links from './links';
 import menuStyle from './menu.module.css';
 
 const Menu = ({ deActive }) => {
@@ -8,26 +8,15 @@ const Menu = ({ deActive }) => {
             <div className={menuStyle.overlay} />
             <div className={menuStyle.menuItems}>
                 <ul>
-                    <li>
-                        <a href="#welcome">
-                            HOME
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#game">
-                            GAME
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about">
-                            ABOUT
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#contact">
-                            CONTACT
-                        </a>
-                    </li>
+                    {links.map((item, index) => {
+                        return (
+                            <li key={index}>
+                                <a href={`#${item.href}`}>
+                                    {item.name}
+                                </a>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </div>
