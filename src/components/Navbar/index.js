@@ -2,20 +2,21 @@ import cn from 'classnames';
 
 import navbarStyle from './navbar.module.css';
 
-const Navbar = ({ isActive = false, changeMenu }) => { 
-    const handleOpenMenu = ()=>{
-        changeMenu();
+const Navbar = ({ isOpen = false, bgActive = false, onClickHamburg }) => {
+    const handleOpenMenu = () => {
+        onClickHamburg();
     }
     return (
 
-        <nav id={navbarStyle.navbar}>
+        <nav id={navbarStyle.navbar} className={cn({ [navbarStyle.bgActive]: bgActive })}>
             <div className={navbarStyle.navWrapper}>
                 <p className={navbarStyle.brand}>
                     LOGO
                 </p>
-                <span className={cn(navbarStyle.menuButton, { [navbarStyle.active]: isActive })}>
-                    <span  onClick = {handleOpenMenu}/>
-                </span>
+                <div className={cn(navbarStyle.menuButton, { [navbarStyle.active]: isOpen })}
+                onClick={handleOpenMenu}>
+                    <span  />
+                </div>
             </div>
         </nav>
     );
