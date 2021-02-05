@@ -1,16 +1,6 @@
-import Header from '../../components/Header';
-import MenuHeader from '../../components/MenuHeader';
-import Layout from '../../components/Layout';
-import Footer from '../../components/Footer';
 import PokemonCard from '../../components/PokemonCard';
-
-
-import ImageBg2 from '../../images/bg2.jpg';
-import ImageBg3 from '../../images/bg3.jpg';
-import logoIMG from '../../images/pikachu.jpg';
-
+import { useState } from 'react';
 import style from './style.module.css';
-
 const POKEMONS = [
     {
         "abilities": [
@@ -37,7 +27,8 @@ const POKEMONS = [
             "right": 2,
             "bottom": 7,
             "left": 5
-        }
+        },
+        active: false
     },
     {
         "abilities": [
@@ -64,7 +55,8 @@ const POKEMONS = [
             "right": 9,
             "bottom": "A",
             "left": "A"
-        }
+        },
+        active: false
     },
     {
         "abilities": [
@@ -90,7 +82,8 @@ const POKEMONS = [
             "right": "A",
             "bottom": 9,
             "left": 6
-        }
+        },
+        active: false
     },
     {
         "abilities": [
@@ -116,7 +109,8 @@ const POKEMONS = [
             "right": 4,
             "bottom": 2,
             "left": 7
-        }
+        },
+        active: false
     },
     {
         "abilities": [
@@ -142,53 +136,40 @@ const POKEMONS = [
             "right": 6,
             "bottom": 1,
             "left": 4
-        }
+        },
+        active: false
     }
 ];
+const GamePage = () => {
+    const [currentPokemons, setIsActive] = useState(POKEMONS);
+    const revertPokemon = (id) => {
+        // Длинный способ
+        // const indexActivatePokemon = currentPokemons.map(el => el.id).indexOf(id);
+        // const before = currentPokemons.slice(0, indexActivatePokemon);
+        // const after = currentPokemons.slice(indexActivatePokemon + 1);
+        // const oldPokemon = currentPokemons[indexActivatePokemon];
+        // const newPokemon = { ...oldPokemon, active: !oldPokemon.active }
+        // const changedPokemons = [...before, newPokemon, ...after];
 
-
-
-const HomePage = ({ onChangePage }) => {
-    const handleClickButton = (page) => {
-        console.log('####: <HomePage/>');
-        onChangePage && onChangePage(page);
+        //как советует ментор
+        const changedPokemons = currentPokemons.map(item => item.id === id ? ({ ...item, active: !item.active }) : item);
+        setIsActive(changedPokemons);
     }
+
     return (
-        <>
-            <MenuHeader />
-            <Header title="Титл" descr="Дескрипшн" onClickButton={handleClickButton} />
-            <Layout id={1} urlBg={ImageBg2} colorBg="blue">
-                <p>Ласточка примчалась
-                Из-за бела моря,
-                Села и запела:
-                "Как, февраль, не злися,
-                Как ты, март, не хмурься,
-                Будь хоть снег, хоть дождик -
-                Все весною пахнет!"
-                </p>
-            </Layout>
-            <Layout id={2} colorBg="yellow" >
-                <div className={style.flex}>
-                    {POKEMONS.map((item) => <PokemonCard key={item.id}
-                        id={item.id}
-                        name={item.name}
-                        img={item.img}
-                        type={item.type}
-                        values={item.values}
-                    />)}
-                </div>
-            </Layout>
-            <Layout id={3} urlBg={ImageBg3} >
-                <img src={logoIMG} alt="Logo" />
-                <p>
-                    Распустился ландыш в мае
-                    В самый праздник — в первый день.
-                    Май цветами провожая,
-                    Распускается сирень.
-                </p>
-            </Layout>
-            <Footer />
-        </>
+        <div className={style.flex}>
+            {
+                currentPokemons.map((item) => <PokemonCard key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    img={item.img}
+                    type={item.type}
+                    values={item.values}
+                    isActive={item.active}
+                    revertPokemon={revertPokemon}
+                />)}
+        </div>
     );
 }
-export default HomePage;
+
+export default GamePage;

@@ -1,19 +1,19 @@
 const links = [
     {
         name: 'HOME',
-        href: '#welcome'
+        href: '/'
     },
     {
         name: 'GAME',
-        href: '#game'
+        href: 'game'
     },
     {
         name: 'ABOUT',
-        href: '#about'
+        href: 'about'
     },
     {
         name: 'CONTACT',
-        href: '#contact'
+        href: 'contact'
     }
 ];
 export default links;
