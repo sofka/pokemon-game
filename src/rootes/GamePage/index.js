@@ -143,12 +143,16 @@ const POKEMONS = [
 const GamePage = () => {
     const [currentPokemons, setIsActive] = useState(POKEMONS);
     const revertPokemon = (id) => {
-        const indexActivatePokemon = currentPokemons.map(el => el.id).indexOf(id);
-        const before = currentPokemons.slice(0, indexActivatePokemon);
-        const after = currentPokemons.slice(indexActivatePokemon + 1);
-        const oldPokemon = currentPokemons[indexActivatePokemon];
-        const newPokemon = { ...oldPokemon, active: !oldPokemon.active }
-        const changedPokemons = [...before, newPokemon, ...after];
+        // Длинный способ
+        // const indexActivatePokemon = currentPokemons.map(el => el.id).indexOf(id);
+        // const before = currentPokemons.slice(0, indexActivatePokemon);
+        // const after = currentPokemons.slice(indexActivatePokemon + 1);
+        // const oldPokemon = currentPokemons[indexActivatePokemon];
+        // const newPokemon = { ...oldPokemon, active: !oldPokemon.active }
+        // const changedPokemons = [...before, newPokemon, ...after];
+
+        //как советует ментор
+        const changedPokemons = currentPokemons.map(item => item.id === id ? ({ ...item, active: !item.active }) : item);
         setIsActive(changedPokemons);
     }
 
