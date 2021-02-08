@@ -9,35 +9,32 @@ const GamePage = () => {
         database.ref('pokemons').once('value', (snapshot) => {
             setPokemons(snapshot.val());
         });
-    }, [currentPokemons]);
+    }, []);
 
     const revertPokemon = (id, objID) => {
-        // Длинный способ
-        // const indexActivatePokemon = currentPokemons.map(el => el.id).indexOf(id);
-        // const before = currentPokemons.slice(0, indexActivatePokemon);
-        // const after = currentPokemons.slice(indexActivatePokemon + 1);
-        // const oldPokemon = currentPokemons[indexActivatePokemon];
-        // const newPokemon = { ...oldPokemon, active: !oldPokemon.active }
-        // const changedPokemons = [...before, newPokemon, ...after];
-
-        //как советует ментор
-        // const changedPokemons = currentPokemons.map(item => item.id === id ? ({ ...item, active: !item.active }) : item);
-        // setPokemons(changedPokemons);
-
-        //Переделка для объекта
-        setPokemons(prevState => {
-            return Object.entries(prevState).reduce((acc, item) => {
-                const pokemon = { ...item[1] };
-                if (pokemon.id === id) {
-                    pokemon.active = !pokemon.active;
-                    database.ref('pokemons/' + objID).set(pokemon);
-                };
-
-                acc[item[0]] = pokemon;
-
-                return acc;
-            }, {});
+        var pokemon = getPokemonByObjId(objID);
+        pokemon.active = !pokemon.active;
+        const updatedPokemon = { ...pokemon };
+        // сохраняю в бд
+        // после меняю setPokemons
+        database.ref('pokemons/' + objID).set(updatedPokemon).then(() => {
+            setPokemons(prevState => {
+                return Object.entries(prevState).reduce((acc, item) => {
+                    const pokemon = { ...item[1] };
+                    if (pokemon.id === id) {
+                        pokemon.active = !pokemon.active;
+                    }
+                    acc[item[0]] = pokemon;
+                    return acc;
+                }, {});
+            });
         });
+
+    }
+
+    // Получить покемона из списка, как новый объект, по objId - ключ
+    const getPokemonByObjId = (objId) => {
+        return { ...currentPokemons[objId] };
     }
 
     const handleAddPokemon = () => {
@@ -48,7 +45,13 @@ const GamePage = () => {
         const pokemon = createNewPokemon(newId);
         currentPokemons[newKey] = pokemon;
 
-        database.ref('pokemons/' + newKey).set(pokemon);
+        database.ref('pokemons/' + newKey).set(pokemon).then(() => {
+            setPokemons(prevState => {
+                const newState = { ...prevState };
+                newState[newKey] = pokemon;
+                return newState;
+            });
+        });
     };
 
     const createNewPokemon = (id) => {
