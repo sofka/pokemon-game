@@ -1,9 +1,11 @@
 // import style from './style.module.css';
 const AboutPage = () => {
     return (
-        <h1>
-            This is AboutPage
+        <div>
+            <h1>
+                This is AboutPage
         </h1>
+        </div>
     );
 }
 
