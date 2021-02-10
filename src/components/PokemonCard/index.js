@@ -2,11 +2,9 @@ import cn from 'classnames';
 
 import style from './style.module.css';
 
-const PokemonCard = ({ objID, name, img, id, type, values, isActive = true, isSelected = false, minimize, className = style.size, revertPokemon, selectPokemon }) => {
+const PokemonCard = ({ name, img, id, type, values, isActive = true, isSelected = false, minimize, className, selectPokemon }) => {
     const handleOnClick = () => {
-
         selectPokemon && selectPokemon(id);
-        revertPokemon && revertPokemon(id, objID);
     }
     return (
         <div className={cn(className, style.pokemonCard, { [style.active]: isActive }, { [style.selected]: isSelected })} onClick={handleOnClick}>

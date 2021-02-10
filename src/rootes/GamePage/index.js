@@ -8,17 +8,22 @@ import { useState } from 'react';
 
 const GamePage = () => {
     const match = useRouteMatch();
-    const [pokemons, selectPokemon] = useState({});
-    const handleSelectPokemon = ({objId,object}) => {
-        selectPokemon((prevState) => {
-            const newState = { ...prevState, [objId]: object };
+    const [selectedPokemons, setSelectedPokemons] = useState({});
+    const handleSelectPokemon = (key, pokemon) => {
+        setSelectedPokemons((prevState) => {
+            if (prevState[key]) {
+                const copyState = { ...prevState };
+                delete copyState[key];
+                return copyState;
+            }
+            const newState = { ...prevState, [key]: pokemon };
             return newState;
         })
     }
     return (
         <PokemonContext.Provider value={
             {
-                pokemons,
+                pokemons: selectedPokemons,
                 handleSelectPokemon
             }
         }>

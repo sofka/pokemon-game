@@ -6,7 +6,6 @@ import s from './style.module.css';
 
 const BoardPage = () => {
     const pokemonContext = useContext(PokemonContext);
-    console.log(pokemonContext);
     const selectedPokemons = pokemonContext.pokemons || {};
     return (
         <div className={s.root}>

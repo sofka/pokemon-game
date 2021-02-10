@@ -12,14 +12,18 @@ const firebaseConfig = {
     appId: "1:256629902379:web:8ae7bc48f8b1e5f78d2e6e"
 };
 
+firebase.initializeApp(firebaseConfig);
+
 class Firebase {
     constructor() {
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
         this.fire = firebase;
         this.database = this.fire.database();
     }
+
+    offPokemonSoket = () => {
+        this.database.ref('pokemons').off();
+    }
+
 
     getPokemonSoket = (cb) => {
         this.database.ref('pokemons').on('value', (snapshot) => {
