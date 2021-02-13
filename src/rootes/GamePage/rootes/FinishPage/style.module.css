@@ -1,0 +1,28 @@
+.row {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto ;
+    grid-gap: 5px;
+}
+
+.card {
+    width: 40vh;
+    height: 20vw;
+    cursor: pointer;
+}
+
+.selected{
+    border: 2px solid yellow;
+}
+
+.button{
+    background-color: #c9468c;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: auto;
+    display: block;
+    margin-top: 20px
+}
