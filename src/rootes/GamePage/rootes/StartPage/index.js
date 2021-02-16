@@ -35,7 +35,6 @@ const StartPage = () => {
         });
     };
 
-
     return (
         <>
             <button type="button" className={style.button}

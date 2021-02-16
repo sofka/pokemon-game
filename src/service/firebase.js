@@ -39,8 +39,11 @@ class Firebase {
         this.database.ref(`pokemons/${key}`).set(pokemon);
     }
 
-    addPokemon = async (data) => {
+    addPokemon = async (data, replaceIdToKey) => {
         const newKey = (await this.database.ref().child('pokemon').push()).key;
+        if(replaceIdToKey){
+            data.id = newKey;
+        }
         this.database.ref('pokemons/' + newKey).set(data);
     }
 
