@@ -1,29 +1,30 @@
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { PokemonContext } from '../../../../context/pokemonContext/pokemonContext';
 import PokemonCard from '../../../../components/PokemonCard';
 import cn from 'classnames';
 import style from './style.module.css';
 import { FireBaseContext } from '../../../../context/firebaseContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { finishBoard} from '../../../../store/pokemons';
+
 
 const FinishPage = () => {
     const history = useHistory();
-    const pokemonContext = useContext(PokemonContext);
-    const { finishBoard } = pokemonContext;
+    const dispatch = useDispatch();
+    const finishBoardRedux  = useSelector(finishBoard);
 
-    if (!finishBoard || !finishBoard.length) {
+    if (!finishBoardRedux || !finishBoardRedux.length) {
 
         history.replace('/game');
     }
-    const player1Cards = finishBoard.filter(item => item.card.possession === 'blue');
-    const player2Cards = finishBoard.filter(item => item.card.possession === 'red');
+    const player1Cards = finishBoardRedux.filter(item => item.card.possession === 'blue');
+    const player2Cards = finishBoardRedux.filter(item => item.card.possession === 'red');
     const [selectedCard, setSelectedCard] = useState(null);
     const firebase = useContext(FireBaseContext);
     const handleEndGame = () => {
         if(selectedCard){
-            firebase.addPokemon(selectedCard.card, true)
+            firebase.addPokemon({...selectedCard.card}, true)
         }
-        pokemonContext.clearPokemonContext();
         history.replace('/game');
     }
 

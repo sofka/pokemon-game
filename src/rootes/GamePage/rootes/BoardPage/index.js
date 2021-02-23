@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { PokemonContext } from '../../../../context/pokemonContext/pokemonContext';
 import PokemonCard from '../../../../components/PokemonCard';
 import PlayerBoard from './components/PlayerBoard';
 import Result from './components/Result';
 
 import s from './style.module.css';
 import ArrowChoice from './components/ArrowChoice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectedPokemonsData, setFinishBoard } from '../../../../store/pokemons';
 
 const counterWin = (board, player1, player2) => {
   let player1Count = player1.length;
@@ -27,16 +28,15 @@ const randomInteger = (min, max) => {
   return Math.round(rand);
 }
 const randomSide = randomInteger(1, 2);
-console.log('randomSide ' + randomSide);
 
 
 const BoardPage = () => {
-  const pokemonContext = useContext(PokemonContext);
-  const { pokemons } = pokemonContext;
+  const pokemons = useSelector(selectedPokemonsData);
+  const dispatch = useDispatch();
 
   const [board, setBoard] = useState([]);
   const [player1, setPlayer1] = useState(() => {
-    return Object.values(pokemons).map((item) => ({
+    return pokemons.map((item) => ({
       ...item,
       possession: 'blue',
     }));
@@ -135,7 +135,7 @@ const BoardPage = () => {
       }
       // не знала как лучше придумать, чтобы результат увидеть
       setTimeout(() => {
-        pokemonContext.setFinishBoard(board);
+        dispatch(setFinishBoard(board));
         history.replace('/game/finish');
       }, 5000);
 
