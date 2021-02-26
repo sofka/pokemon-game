@@ -15,7 +15,6 @@ const HomePage = ({ onChangePage }) => {
     console.log(count);
 
     const handleClickButton = (page) => {
-        // onChangePage && onChangePage(page);
         dispatch(plusAction(1));
     }
     return (
