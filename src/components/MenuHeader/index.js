@@ -1,16 +1,21 @@
 import { useState } from 'react';
+import LoginForm from '../LoginForm';
 import Menu from '../Menu';
 import Modal from '../Modal';
 import Navbar from '../Navbar';
 
 const MenuHeader = ({ bgActive }) => {
     const [isOpen, setOpen] = useState(null);
-    const [isOpenModal, setOpenModal] = useState(false);
+    const [isOpenModal, setOpenModal] = useState(true);
     const handleClickHamburg = () => {
         setOpen(prevState => !prevState);
     }
     const handleClickLogin = () => {
         setOpenModal(prevState => !prevState);
+    }
+
+    const handleSubmitLoginForm = (values) => {
+        console.log(values);
     }
     return (
         <>
@@ -23,8 +28,9 @@ const MenuHeader = ({ bgActive }) => {
             <Modal
                 isOpen={isOpenModal}
                 title="Log in..."
-                onCloseModal={handleClickLogin}>
-                Some text Here
+                onCloseModal={handleClickLogin}
+            >
+                <LoginForm onSubmit={handleSubmitLoginForm} />
             </Modal>
         </>
     );
