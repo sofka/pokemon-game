@@ -1,15 +1,20 @@
 import cn from 'classnames';
 import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { clearEmailAndPassword } from '../../store/user';
+
 import s from './style.module.css';
 const Modal = ({ isOpen, title, children, onCloseModal }) => {
     const modalEl = useRef();
 
+    const dispatch = useDispatch();
     useEffect(() => {
         document.querySelector('body').style.overflow = isOpen ? 'hidden' : null;
     }, [isOpen]);
-    
+
     const handleCloseModal = () => {
         onCloseModal && onCloseModal(false);
+        dispatch(clearEmailAndPassword());
     }
     const handleClickRoot = (event) => {
         if (!modalEl.current.contains(event.target)) {
