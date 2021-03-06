@@ -9,6 +9,7 @@ import ContactPage from './rootes/ContactPage';
 import NotFound from './rootes/NotFound';
 import MenuHeader from './components/MenuHeader';
 import Footer from './components/Footer';
+import PrivateRoute from './components/PrivateRoute';
 
 import style from './style.module.css';
 import 'react-notifications/lib/notifications.css';
@@ -32,9 +33,9 @@ const App = () => {
               <Switch>
                 <Route path="/" exact component={HomePage} />
                 <Route path="/home" component={HomePage} />
-                <Route path="/game" component={GamePage} />
-                <Route path="/about" component={AboutPage} />
-                <Route path="/contact" component={ContactPage} />
+                <PrivateRoute path="/game" component={GamePage} />
+                <PrivateRoute path="/about" component={AboutPage} />
+                <PrivateRoute path="/contact" component={ContactPage} />
                 <Route render={() => (
                   <Redirect to="/notFound" />
                 )} />

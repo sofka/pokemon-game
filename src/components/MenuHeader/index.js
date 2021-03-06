@@ -10,7 +10,7 @@ import Navbar from '../Navbar';
 
 const MenuHeader = ({ bgActive }) => {
     const [isOpen, setOpen] = useState(null);
-    const [isOpenModal, setOpenModal] = useState(true);
+    const [isOpenModal, setOpenModal] = useState(false);
     const isRegister = useSelector(isRegisterData);
     const handleClickHamburg = () => {
         setOpen(prevState => !prevState);
@@ -37,6 +37,7 @@ const MenuHeader = ({ bgActive }) => {
         if (response.hasOwnProperty('error')) {
             NotificationManager.error(response.error.message, 'Title');
         } else {
+            localStorage.setItem('idToken', response.idToken);
             NotificationManager.success('Success message');
         }
     }
