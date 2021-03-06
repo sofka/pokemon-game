@@ -4,7 +4,8 @@ export const slice = createSlice({
     name: 'user',
     initialState: {
         email: '',
-        password: ''
+        password: '',
+        isRegister: false
     },
     reducers: {
         setEmailData: (state, action) => ({
@@ -15,15 +16,21 @@ export const slice = createSlice({
             ...state,
             password: action.payload
         }),
+        setIsRegisterdData: (state, action) => ({
+            ...state,
+            isRegister: action.payload
+        }),
         clearEmailAndPassword: (state, action) => ({
             ...state,
             password: '',
-            email: ''
+            email: '',
+            isRegister: false
         })
     }
 });
-export const { setEmailData, setPasswordData, clearEmailAndPassword } = slice.actions;
+export const { setEmailData, setPasswordData, clearEmailAndPassword, setIsRegisterdData } = slice.actions;
 export const emailData = state => state.user.email;
 export const passwordData = state => state.user.password;
+export const isRegisterData = state => state.user.isRegister;
 
 export default slice.reducer;

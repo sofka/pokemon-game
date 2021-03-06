@@ -1,15 +1,12 @@
-import { useState } from 'react';
 import Input from '../Input';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearEmailAndPassword, emailData, passwordData, setEmailData, setPasswordData } from '../../store/user';
-
-import s from './style.module.css'
-
+import { clearEmailAndPassword, emailData, passwordData, isRegisterData, setEmailData, setPasswordData, setIsRegisterdData } from '../../store/user';
+import s from './style.module.css';
 const LoginForm = ({ onSubmit }) => {
     const email = useSelector(emailData);
     const password = useSelector(passwordData);
-    console.log(email);
+    const isRegister = useSelector(isRegisterData);
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -44,8 +41,11 @@ const LoginForm = ({ onSubmit }) => {
             </div>
 
             <button >
-                Login
+                {isRegister ? 'Signin' : 'Signup'}
             </button>
+            <a onClick={() => dispatch(setIsRegisterdData(!isRegister))}>
+                {isRegister ? 'Register?' : 'Login?'}
+            </a>
         </form>
     );
 };
