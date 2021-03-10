@@ -14,7 +14,6 @@ const Modal = ({ isOpen, title, children, onCloseModal }) => {
 
     const handleCloseModal = () => {
         onCloseModal && onCloseModal(false);
-        dispatch(clearEmailAndPassword());
     }
     const handleClickRoot = (event) => {
         if (!modalEl.current.contains(event.target)) {

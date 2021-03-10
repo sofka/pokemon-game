@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { clearEmailAndPassword, emailData, passwordData, isRegisterData, setEmailData, setPasswordData, setIsRegisterdData } from '../../store/user';
 import s from './style.module.css';
-const LoginForm = ({ onSubmit }) => {
+import { useEffect } from 'react';
+const LoginForm = ({ onSubmit, isResetField = false }) => {
     const email = useSelector(emailData);
     const password = useSelector(passwordData);
     const isRegister = useSelector(isRegisterData);
@@ -17,6 +18,10 @@ const LoginForm = ({ onSubmit }) => {
 
         dispatch(clearEmailAndPassword());
     }
+
+    useEffect(() => {
+        dispatch(clearEmailAndPassword());
+    }, [isResetField])
 
     return (
         <form onSubmit={handleSubmit}>

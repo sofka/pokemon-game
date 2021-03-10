@@ -19,7 +19,7 @@ const MenuHeader = ({ bgActive }) => {
         setOpenModal(prevState => !prevState);
     }
 
-    const handleSubmitLoginForm = async ({ email, password }) => {
+    const signSignupUser = async ({ email, password }) => {
         const requestOptions = {
             method: 'POST',
             body: JSON.stringify({
@@ -28,17 +28,25 @@ const MenuHeader = ({ bgActive }) => {
                 returnSecureToken: true
             })
         };
-        const response = isRegister ?
-            await fetch(' https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAYC1tuB8cKJ-yTF_4cw8hSZcU7LFBin5w',
-                requestOptions).then(res => res.json()) :
-            await fetch(' https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAYC1tuB8cKJ-yTF_4cw8hSZcU7LFBin5w',
-                requestOptions).then(res => res.json());
-        console.log(response);
+        switch (isRegister) {
+            case true:
+                return await fetch(' https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAYC1tuB8cKJ-yTF_4cw8hSZcU7LFBin5w',
+                    requestOptions).then(res => res.json());
+            case false:
+                return await fetch(' https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAYC1tuB8cKJ-yTF_4cw8hSZcU7LFBin5w',
+                    requestOptions).then(res => res.json());
+        }
+    }
+
+    const handleSubmitLoginForm = async (props) => {
+
+        const response = await signSignupUser(props);
         if (response.hasOwnProperty('error')) {
             NotificationManager.error(response.error.message, 'Title');
         } else {
             localStorage.setItem('idToken', response.idToken);
             NotificationManager.success('Success message');
+            handleClickLogin();
         }
     }
     return (
@@ -54,7 +62,10 @@ const MenuHeader = ({ bgActive }) => {
                 title="Log in..."
                 onCloseModal={handleClickLogin}
             >
-                <LoginForm onSubmit={handleSubmitLoginForm} />
+                <LoginForm
+                    isResetField={!isOpenModal}
+                    onSubmit={handleSubmitLoginForm}
+                />
             </Modal>
         </>
     );
