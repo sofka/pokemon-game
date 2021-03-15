@@ -1,8 +1,9 @@
 import cn from 'classnames';
 
 import navbarStyle from './navbar.module.css';
+import { ReactComponent as LoginSVG } from '../../images/login.svg'
 
-const Navbar = ({ isOpen = false, bgActive = false, onClickHamburg }) => {
+const Navbar = ({ isOpen = false, bgActive = false, onClickHamburg, onClickLogin }) => {
     const handleOpenMenu = () => {
         onClickHamburg();
     }
@@ -13,9 +14,15 @@ const Navbar = ({ isOpen = false, bgActive = false, onClickHamburg }) => {
                 <p className={navbarStyle.brand}>
                     LOGO
                 </p>
-                <div className={cn(navbarStyle.menuButton, { [navbarStyle.active]: isOpen })}
-                onClick={handleOpenMenu}>
-                    <span  />
+                <div className={navbarStyle.loginAndMenu}>
+                    <div className={navbarStyle.loginWrap}
+                    onClick={onClickLogin}>
+                        <LoginSVG />
+                    </div>
+                    <div className={cn(navbarStyle.menuButton, { [navbarStyle.active]: isOpen })}
+                        onClick={handleOpenMenu}>
+                        <span />
+                    </div>
                 </div>
             </div>
         </nav>

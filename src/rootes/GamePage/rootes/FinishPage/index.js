@@ -4,13 +4,12 @@ import PokemonCard from '../../../../components/PokemonCard';
 import cn from 'classnames';
 import style from './style.module.css';
 import { FireBaseContext } from '../../../../context/firebaseContext';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { finishBoard} from '../../../../store/pokemons';
 
 
 const FinishPage = () => {
     const history = useHistory();
-    const dispatch = useDispatch();
     const finishBoardRedux  = useSelector(finishBoard);
 
     if (!finishBoardRedux || !finishBoardRedux.length) {
