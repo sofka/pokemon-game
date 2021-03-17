@@ -1,7 +1,7 @@
 import Input from '../Input';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearEmailAndPassword, emailData, passwordData, isRegisterData, setEmailData, setPasswordData, setIsRegisterdData } from '../../store/user';
+import { emailData, passwordData, isRegisterData, setEmailData, setPasswordData, setIsRegisterdData, clearEmailAndPassword } from '../../store/user';
 import s from './style.module.css';
 import { useEffect } from 'react';
 const LoginForm = ({ onSubmit, isResetField = false }) => {

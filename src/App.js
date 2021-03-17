@@ -1,6 +1,6 @@
 import { useLocation, Route, Switch, Redirect } from 'react-router-dom';
 import cn from 'classnames';
-import {NotificationContainer} from 'react-notifications';
+import { NotificationContainer } from 'react-notifications';
 
 import HomePage from './rootes/HomePage';
 import GamePage from './rootes/GamePage';
@@ -15,11 +15,23 @@ import style from './style.module.css';
 import 'react-notifications/lib/notifications.css';
 import { FireBaseContext } from './context/firebaseContext';
 import FirebaseClass from './service/firebase';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserAsync, selectUserLoading } from './store/user';
 
 
 const App = () => {
+  const isUserLoading = useSelector(selectUserLoading);
   const location = useLocation('/');
-  const isPadding = location.pathname === '/'|| location.pathname==='/game/board';
+  const isPadding = location.pathname === '/' || location.pathname === '/game/board';
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserAsync());
+  }, [])
+
+  if (isUserLoading) {
+    return 'Loading...';
+  }
   return (
     <FireBaseContext.Provider value={FirebaseClass}>
       <Switch>
@@ -47,7 +59,7 @@ const App = () => {
           </>
         </Route>
       </Switch>
-      <NotificationContainer/>
+      <NotificationContainer />
     </FireBaseContext.Provider>
   );
 }

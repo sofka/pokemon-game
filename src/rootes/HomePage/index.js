@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 
@@ -6,16 +5,11 @@ import Layout from '../../components/Layout';
 import ImageBg2 from '../../images/bg2.jpg';
 import ImageBg3 from '../../images/bg3.jpg';
 import logoIMG from '../../images/pikachu.jpg';
-import { plusAction, selectCount } from '../../store/counter';
 
 
 const HomePage = ({ onChangePage }) => {
-    const count = useSelector(selectCount)
-    const dispatch = useDispatch();
-    console.log(count);
 
     const handleClickButton = (page) => {
-        dispatch(plusAction(1));
     }
     return (
         <>
