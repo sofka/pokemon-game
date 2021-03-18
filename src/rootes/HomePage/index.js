@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router';
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 
@@ -9,7 +10,9 @@ import logoIMG from '../../images/pikachu.jpg';
 
 const HomePage = ({ onChangePage }) => {
 
-    const handleClickButton = (page) => {
+    const history = useHistory();
+    const handleClickButton = () => {
+        history.push('/game');
     }
     return (
         <>
