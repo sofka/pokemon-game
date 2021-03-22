@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NotificationManager } from 'react-notifications';
-import { useSelector } from 'react-redux';
-import { isRegisterData } from '../../store/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserUpdateAsync, isRegisterData } from '../../store/user';
 
 import LoginForm from '../LoginForm';
 import Menu from '../Menu';
@@ -12,6 +12,7 @@ const MenuHeader = ({ bgActive }) => {
     const [isOpen, setOpen] = useState(null);
     const [isOpenModal, setOpenModal] = useState(false);
     const isRegister = useSelector(isRegisterData);
+    const dispatch = useDispatch();
     const handleClickHamburg = () => {
         setOpen(prevState => !prevState);
     }
@@ -44,8 +45,21 @@ const MenuHeader = ({ bgActive }) => {
         if (response.hasOwnProperty('error')) {
             NotificationManager.error(response.error.message, 'Title');
         } else {
+            if (isRegister) {
+                const pokemonStart = await fetch('https://reactmarathon-api.herokuapp.com/api/pokemons/starter')
+                    .then(res => res.json());
+
+                for (const item of pokemonStart.data) {
+                    await fetch(`https://pokemon-game-4f07c-default-rtdb.firebaseio.com/${response.localId}/pokemons.json?auth=${response.idToken}`,
+                        {
+                            method: 'POST',
+                            body: JSON.stringify(item)
+                        });
+                }
+            }
             localStorage.setItem('idToken', response.idToken);
             NotificationManager.success('Success message');
+            dispatch(getUserUpdateAsync());
             handleClickLogin();
         }
     }
