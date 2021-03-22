@@ -6,6 +6,7 @@ import HomePage from './rootes/HomePage';
 import GamePage from './rootes/GamePage';
 import AboutPage from './rootes/AboutPage';
 import ContactPage from './rootes/ContactPage';
+import UserPage from './rootes/UserPage';
 import NotFound from './rootes/NotFound';
 import MenuHeader from './components/MenuHeader';
 import Footer from './components/Footer';
@@ -48,6 +49,7 @@ const App = () => {
                 <PrivateRoute path="/game" component={GamePage} />
                 <PrivateRoute path="/about" component={AboutPage} />
                 <PrivateRoute path="/contact" component={ContactPage} />
+                <PrivateRoute path="/user" component={UserPage} />
                 <Route render={() => (
                   <Redirect to="/notFound" />
                 )} />

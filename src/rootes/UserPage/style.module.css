@@ -1,0 +1,15 @@
+.row{
+    margin: auto;
+    width: 60%;
+}
+
+.col {
+    display: inline-block;
+    width: 25%;
+    font: 1.5em "Fira Sans", sans-serif;
+}
+
+.col_bold {
+    font-weight: bold;
+    
+}
